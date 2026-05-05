@@ -37,7 +37,7 @@ def playGame(tree):
     else:
         print("UNKNOWN OBJECT IN DECISION TREE!")
 
-tree = Leaf("bunny")
+tree = Branch("Does it have long ears?", Leaf("bunny"), Leaf("cat"))
 
 print("Please think of a kind of animal. I will ask yes-no questions, and")
 print("try to guess what kind of animal you are thinking of.")
