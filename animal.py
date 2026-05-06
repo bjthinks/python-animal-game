@@ -33,6 +33,21 @@ def playGame(tree):
             return
         else:
             print("I guess I don\'t know enough about the " + tree.animal + ".")
+            print("What was your animal?")
+            userAnimal = input()
+            print("Please type a yes-no question that would differentiate between")
+            print("the " + tree.animal + " and the " + userAnimal + ".")
+            print("Hint: this should be a question that can easily be answered \"yes\" or \"no\"")
+            print("for any animal. Please include the question mark at the end of your question.")
+            newQuestion = input()
+            print("Would the answer to this question be yes or no for the")
+            print(userAnimal + "?")
+            if getYesNo():
+                newBranch = Branch(newQuestion, Leaf(userAnimal), tree)
+            else:
+                newBranch = Branch(newQuestion, tree, Leaf(userAnimal))
+            # ??? need to change reference to tree in pervious node
+            print(newBranch)
             return
     else:
         print("UNKNOWN OBJECT IN DECISION TREE!")
