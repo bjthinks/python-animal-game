@@ -7,9 +7,17 @@ class Branch(object):
         self.yesAnimal = yesAnimal_
         self.noAnimal = noAnimal_
 
+    def printTree(self, prefix):
+        print(prefix + self.question)
+        self.yesAnimal.printTree(prefix + "Y ")
+        self.noAnimal.printTree(prefix + "N ")
+
 class Leaf(object):
     def __init__(self, animal_):
         self.animal = animal_
+
+    def printTree(self, prefix):
+        print(prefix + self.animal)
 
 def getYesNo():
     str = input()
@@ -62,6 +70,8 @@ try:
         print("Loaded knowledge of animals from animal.dat")
 except:
     tree = Leaf("bunny")
+
+tree.printTree("")
 
 while True:
     print("Please think of a kind of animal. I will ask yes-no questions, and")
