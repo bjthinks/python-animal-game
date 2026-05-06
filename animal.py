@@ -1,4 +1,5 @@
 import sys
+import pickle
 
 class Branch(object):
     def __init__(self, question_, yesAnimal_, noAnimal_):
@@ -55,7 +56,12 @@ def playGame(tree):
         print("UNKNOWN OBJECT IN DECISION TREE!")
         sys.exit(1)
 
-tree = Branch("Does it have long ears?", Leaf("bunny"), Leaf("cat"))
+try:
+    with open("animal.dat", "rb") as brain:
+        tree = pickle.load(brain)
+        print("Loaded knowledge of animals from animal.dat")
+except:
+    tree = Leaf("bunny")
 
 while True:
     print("Please think of a kind of animal. I will ask yes-no questions, and")
@@ -63,4 +69,7 @@ while True:
     tree = playGame(tree)
     print("Want to play again?")
     if not getYesNo():
+        with open("animal.dat", "wb") as brain:
+            pickle.dump(tree, brain)
+            print("Saved what I know of animals to animal.dat")
         break
