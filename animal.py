@@ -71,15 +71,16 @@ try:
 except:
     tree = Leaf("bunny")
 
-tree.printTree("")
-
-while True:
-    print("Please think of a kind of animal. I will ask yes-no questions, and")
-    print("try to guess what kind of animal you are thinking of.")
-    tree = playGame(tree)
-    print("Want to play again?")
-    if not getYesNo():
-        with open("animal.dat", "wb") as brain:
-            pickle.dump(tree, brain)
-            print("Saved what I know of animals to animal.dat")
-        break
+if len(sys.argv) > 1 and sys.argv[1] == "--print":
+    tree.printTree("")
+else:
+    while True:
+        print("Please think of a kind of animal. I will ask yes-no questions, and")
+        print("try to guess what kind of animal you are thinking of.")
+        tree = playGame(tree)
+        print("Want to play again?")
+        if not getYesNo():
+            with open("animal.dat", "wb") as brain:
+                pickle.dump(tree, brain)
+                print("Saved what I know of animals to animal.dat")
+            break
