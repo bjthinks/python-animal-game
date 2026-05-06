@@ -1,3 +1,5 @@
+import sys
+
 class Branch(object):
     def __init__(self, question_, yesAnimal_, noAnimal_):
         self.question = question_
@@ -22,15 +24,17 @@ def playGame(tree):
     if isinstance(tree, Branch):
         print(tree.question)
         if getYesNo():
-            playGame(tree.yesAnimal)
+            tree.yesAnimal = playGame(tree.yesAnimal)
+            return tree
         else:
-            playGame(tree.noAnimal)
+            tree.noAnimal = playGame(tree.noAnimal)
+            return tree
     elif isinstance(tree, Leaf):
         print("Is it a " + tree.animal + "?")
         answer = getYesNo()
         if answer:
             print("I got it!")
-            return
+            return tree
         else:
             print("I guess I don\'t know enough about the " + tree.animal + ".")
             print("What was your animal?")
@@ -46,15 +50,17 @@ def playGame(tree):
                 newBranch = Branch(newQuestion, Leaf(userAnimal), tree)
             else:
                 newBranch = Branch(newQuestion, tree, Leaf(userAnimal))
-            # ??? need to change reference to tree in pervious node
-            print(newBranch)
-            return
+            return newBranch
     else:
         print("UNKNOWN OBJECT IN DECISION TREE!")
+        sys.exit(1)
 
 tree = Branch("Does it have long ears?", Leaf("bunny"), Leaf("cat"))
 
-print("Please think of a kind of animal. I will ask yes-no questions, and")
-print("try to guess what kind of animal you are thinking of.")
-
-playGame(tree)
+while True:
+    print("Please think of a kind of animal. I will ask yes-no questions, and")
+    print("try to guess what kind of animal you are thinking of.")
+    tree = playGame(tree)
+    print("Want to play again?")
+    if not getYesNo():
+        break
