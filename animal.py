@@ -39,7 +39,7 @@ def playGame(tree):
             tree.noAnimal = playGame(tree.noAnimal)
             return tree
     elif isinstance(tree, Leaf):
-        print("Is it a " + tree.animal + "?")
+        print("Is it the " + tree.animal + "?")
         answer = getYesNo()
         if answer:
             print("I got it!")
